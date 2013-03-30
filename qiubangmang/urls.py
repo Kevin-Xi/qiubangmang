@@ -21,4 +21,5 @@ urlpatterns = patterns('',
 	(r'^site_medias/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATICFILES_DIRS,'show_indexes':True}),
 	(r'^accounts/login/$',login),
 	(r'^accounts/logout/$',logout),
+	url(r'^accounts/', include('accounts.urls')),
 )
