@@ -19,4 +19,5 @@ urlpatterns = patterns('',
 	('^$', index),
 	(r'^site_medias/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATICFILES_DIRS,'show_indexes':True}),
 	url(r'^accounts/', include('accounts.urls')),
+	url(r'^posts/', include('posts.urls')),
 )
