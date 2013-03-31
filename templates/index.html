@@ -17,8 +17,13 @@
 		{% endif %}
 		<hr>
 		{% if request.user.is_authenticated %}
-			<p><a href="/accounts/logout/">登出</a></p>
-		{% else %}
+			<ul>
+				{% for post in posts %}
+					<li>
+						<a href="/posts/post/{{ post.id }}">{{ post.title }}</a> &nbsp;&nbsp;&nbsp;&nbsp; {{ post.poster }}
+					</li>
+				{% endfor %}
+			</ul>
 		{% endif %}
 	</body>
 </html>
