@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response
 
 def index(request):
-	return render_to_response('index.html',None)
+	return render_to_response('index.html',{'request': request,})
+	#return render_to_response('index.html',)

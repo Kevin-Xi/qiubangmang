@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title>球帮忙-登录</title>
+	</head>
+	<body>
+		{% if messages %}
+			<ul>
+				{% for message in messages %}
+					<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+		<form action="" method="post">{% csrf_token %}
+			<table border="0" cellpadding="0">
+				{{ form.as_table }}
+			</table>
+			<p> <a href="{% url 'accounts.views.register' %}">注册</a> <a href="{% url 'qiubangmang.views.index' %}">返回首页</a> <input type="submit" value="登录" /></p>
+		</form>
+	</body>
+</html>
