@@ -25,13 +25,14 @@ def post(request):
 	return HttpResponseRedirect("/accounts/login/")
 
 def showpost(request,no):
-	try:
-		no=int(no)
-	except ValueError:
-		raise Http404()
-	post=Post.objects.filter(id=no).values()[0]
-	print post
-	title=post['title']
-	poster=post['poster']
-	content=post['content']
-	return render_to_response("posts/showpost.html",{'title':title,'poster':poster,'content':content,})
+	if request.user.is_authenticated():
+		try:
+			no=int(no)
+		except ValueError:
+			raise Http404()
+		post=Post.objects.filter(id=no).values()[0]
+		title=post['title']
+		poster=post['poster']
+		content=post['content']
+		return render_to_response("posts/showpost.html",{'title':title,'poster':poster,'content':content,})
+	return HttpResponseRedirect("/accounts/login/")
