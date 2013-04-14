@@ -1,6 +1,21 @@
 qiubangmang
 ===
 
-A website to provide a platform allowing help each other
+A Django-powered website providing a platform for student to social intercourse by helping each other.
 
-This is a team work, an assignment.
+Dependencies
+------------
+
++ Linux
++ Apache
++ Mysql
++ Python
++ Django
+
+Copyright and license
+---------------------
+
+This is a practice for a team assignment.
+It's free and you are welcome to redistribute it.
+
+For complete license, see LICENSE.txt(on the way)
