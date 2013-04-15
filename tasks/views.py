@@ -28,8 +28,9 @@ def show_task(request,no):
 	if request.user.is_authenticated():
 		try:
 			no=int(no)
-		except ValueError:
+			task=Task.objects.filter(id=no).values()[0]
+		#except ValueError:
+		except:
 			raise Http404()
-		task=Task.objects.filter(id=no).values()[0]
 		return render_to_response("tasks/showtask.html", {'task' : task, })
 	return HttpResponseRedirect("/accounts/login/")
