@@ -10,7 +10,14 @@
 		<br>
 		<p>悬赏：{{ task.bonus }}</p>
 		<br>
-		<p><input type="submit" value="领取！" /></p>
+		{% if task.receiver %}
+			<p>此任务已被{{ task.receiver }}领取</p>
+		{% else %}
+			<!--form action="" method="post">{% csrf_token %}
+				<p><input type="submit" value="领取！" /></p>
+			</form--!>
+			<p><a href="/tasks/receive={{ task.id }}">领取！</a></p>
+		{% endif %}
 		<hr>
 		<a href="/">回到主页</a>
 	</body>

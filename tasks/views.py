@@ -34,3 +34,15 @@ def show_task(request,no):
 			raise Http404()
 		return render_to_response("tasks/showtask.html", {'task' : task, })
 	return HttpResponseRedirect("/accounts/login/")
+
+def receive(request, no):
+	if request.user.is_authenticated():
+		try:
+			no=int(no)
+			task=Task.objects.get(id=no)
+		except:
+			raise Http404()
+		task.receiver=request.user.username
+		task.save()
+		return HttpResponseRedirect("/tasks/%s/" % no)
+	return HttpResponseRedirect("/accounts/login/")

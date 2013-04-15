@@ -7,3 +7,6 @@ class Task(models.Model):
 	title=models.CharField(max_length=60)
 	content=models.TextField(max_length=1000)
 	bonus=models.PositiveIntegerField()
+
+	def add(username):
+		receiver=username
