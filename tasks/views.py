@@ -28,7 +28,7 @@ def show_task(request,no):
 	if request.user.is_authenticated():
 		try:
 			no=int(no)
-			task=Task.objects.filter(id=no).values()[0]
+			task=Task.objects.get(id=no)
 		#except ValueError:
 		except:
 			raise Http404()
