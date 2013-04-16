@@ -12,7 +12,7 @@ def post(request):
 		form=PostForm()
 		if request.method=="POST":
 			form=PostForm(request.POST.copy())
-			if form.is_valid():
+			if form.valid():
 				poster=request.user.username
 				title=form.cleaned_data["title"]
 				content=form.cleaned_data["content"]
