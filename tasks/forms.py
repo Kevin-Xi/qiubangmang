@@ -11,8 +11,8 @@ class PostForm(forms.Form):
 		if self.is_valid():
 			try:
 				bonus_no=int(self.cleaned_data['bonus'])
+				if bonus_no>=0:
+					return True
 			except:
 				return False
-			if bonus_no>=0:
-				return True
-			return False
+		return False
