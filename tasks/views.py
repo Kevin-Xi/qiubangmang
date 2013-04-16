@@ -42,7 +42,8 @@ def receive(request, no):
 			task=Task.objects.get(id=no)
 		except:
 			raise Http404()
-		task.receiver=request.user.username
-		task.save()
+		if not task.receiver:
+			task.receiver=request.user.username
+			task.save()
 		return HttpResponseRedirect("/tasks/%s/" % no)
 	return HttpResponseRedirect("/accounts/login/")
