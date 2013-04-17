@@ -130,8 +130,9 @@ INSTALLED_APPS = (
 	#'qiubangmang.accounts',
 	#'qiubangmang.posts',
 	'accounts',
-	'posts',
+	#'posts',
 	'tasks',
+	'sells',
 )
 
 # A sample logging configuration. The only tangible logging

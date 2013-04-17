@@ -21,4 +21,5 @@ urlpatterns = patterns('',
 	url(r'^accounts/', include('accounts.urls')),
 	url(r'^posts/', include('posts.urls')),
 	url(r'^tasks/', include('tasks.urls')),
+	url(r'^sells/', include('sells.urls')),
 )
