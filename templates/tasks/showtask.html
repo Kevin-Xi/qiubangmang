@@ -2,21 +2,21 @@
 	<head>
 		<title>球帮忙-显示任务</title>
 	</head>
-	<body background="../../../site_medias/pikachu.jpg">
+	<body background="../../site_medias/pikachu.jpg">
 		<h1>{{ task.title }}</h1>
-		<p>作者：{{ task.poster }}</p>
+		<p>作者：<a href="/accounts/{{ task.poster }}/">{{ task.poster }}</a></p>
 		<br>
 		<p>{{ task.content }}</p>
 		<br>
 		<p>悬赏：{{ task.bonus }}</p>
 		<br>
 		{% if task.receiver %}
-			<p>此任务已被{{ task.receiver }}领取</p>
+			<p>此任务已被<a href="/accounts/{{ task.receiver }}/">{{ task.receiver }}</a>领取</p>
 		{% else %}
 			<!--form action="" method="post">{% csrf_token %}
 				<p><input type="submit" value="领取！" /></p>
 			</form--!>
-			<p><a href="/tasks/receive={{ task.id }}"><button type="submit">领取！</button></a></p>
+			<p><a href="/tasks/receive={{ task.id }}/"><button type="submit">领取！</button></a></p>
 		{% endif %}
 		<hr>
 		<a href="/">回到主页</a>

@@ -2,21 +2,21 @@
 	<head>
 		<title>球帮忙-展示能力</title>
 	</head>
-	<body background="../../../site_medias/squirtle.jpg">
+	<body background="../../site_medias/squirtle.jpg">
 		<h1>{{ sell.title }}</h1>
-		<p>作者：{{ sell.poster }}</p>
+		<p>作者：<a href="/accounts/{{ sell.poster }}/">{{ sell.poster }}</a></p>
 		<br>
 		<p>{{ sell.content }}</p>
 		<br>
 		<p>要价：{{ sell.bonus }}</p>
 		<br>
 		{% if sell.receiver %}
-			<p>此能力已被{{ sell.receiver }}预订</p>
+			<p>此能力已被<a href="/accounts/{{ sell.receiver }}/">{{ sell.receiver }}</a>预订</p>
 		{% else %}
 			<!--form action="" method="post">{% csrf_token %}
 				<p><input type="submit" value="预订！" /></p>
 			</form--!>
-			<p><a href="/sells/receive={{ sell.id }}"><button type="submit">预订！</button></a></p>
+			<p><a href="/sells/receive={{ sell.id }}/"><button type="submit">预订！</button></a></p>
 		{% endif %}
 		<hr>
 		<a href="/">回到主页</a>

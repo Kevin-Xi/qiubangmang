@@ -1,11 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response
 #from forms import RegisterForm, LoginForm
 from forms import LoginForm
 from django.template import RequestContext
+from tasks.models import Task
+from sells.models import Ability
 
 def register(request):
 	if request.method=='POST':
@@ -53,3 +56,14 @@ def _login(request, username, password):
 def logout(request):
 	auth_logout(request)
 	return HttpResponseRedirect("/")
+
+def homepage(request, username):
+	if request.user.is_authenticated():
+		try:
+			user=User.objects.get(username=username)
+		except:
+			raise Http404()
+		tasks=Task.objects.filter(poster=username)
+		abilities=Ability.objects.filter(poster=username)
+		return render_to_response("accounts/homepage.html", {'request': request, 'user': user, 'tasks': tasks, 'abilities': abilities, })
+	return HttpResponseRedirect("/accounts/login/")

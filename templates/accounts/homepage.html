@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<title>{{ user.username }}的主页</title>
+	</head>
+	<body background="../../site_medias/snorlax.jpg">
+		<h1><font color="orange">{{ user.username }}的主页</font></h1>
+		<hr>
+		<h2><font color="orange">{{ user.username }}的任务</font></h2>
+		<ul>
+			{% for task in tasks %}
+				<li>
+					<a href="/tasks/{{ task.id }}/"><font color="orange">{{ task.title }}</font></a>
+				</li>
+			{% endfor %}
+		</ul>
+		<br>
+		<h2><font color="orange">{{ user.username }}的能力</font></h2>
+		<ul>
+			{% for ability in abilities %}
+				<li>
+					<a href="/sells/{{ ability.id }}/"><font color="orange">{{ ability.title }}</font></a>
+				</li>
+			{% endfor %}
+		</ul>
+		<hr>
+		<p><a href="/"><font color="orange">返回主页</font></a></p>
+	</body>
+</html>

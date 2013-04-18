@@ -7,4 +7,5 @@ urlpatterns=patterns('',
 		url(r'^login/$', views.login),
 		url(r'^logout/$', views.logout),
 		url(r'^welcome/$', views.welcome),
+		url(r'^(\w{1,})/$', views.homepage),
 		)

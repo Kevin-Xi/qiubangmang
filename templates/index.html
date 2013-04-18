@@ -1,8 +1,9 @@
 <html>
-	<title>
-		Seek For Help!
-	</title>
-
+	<head>
+		<title>
+			Seek For Help!
+		</title>
+	</head>
 	<body background="site_medias/subject.jpg">
 		<h1> 学长，球帮忙！ </h1>
 		<hr>
@@ -11,6 +12,7 @@
 			<!--a href="/posts/post/">发帖</a--!>
 			<a href="/tasks/post/">发布任务</a>
 			<a href="/sells/post/">展示能力</a>
+			<a href="/accounts/{{ request.user.username }}/">个人主页</a>
 			<a href="/accounts/logout/">登出</a>
 		{% else %}
 			<p><strong> <h2>现在加入“球帮忙”，以上难题，瞬间秒杀！</h2></strong></p>
@@ -32,7 +34,7 @@
 			<ul>
 				{% for task in tasks %}
 					<li>
-						<a href="/tasks/{{ task.id }}">{{ task.title }}</a> &nbsp;&nbsp;&nbsp;&nbsp; {{ task.poster }}
+					<a href="/tasks/{{ task.id }}/">{{ task.title }}</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="/accounts/{{ task.poster }}/">{{ task.poster }}</a>
 					</li>
 				{% endfor %}
 			</ul>
@@ -41,7 +43,7 @@
 			<ul>
 				{% for ability in abilities %}
 					<li>
-						<a href="/sells/{{ ability.id }}">{{ ability.title }}</a> &nbsp;&nbsp;&nbsp;&nbsp; {{ ability.poster }}
+					<a href="/sells/{{ ability.id }}/">{{ ability.title }}</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="/accounts/{{ ability.poster }}/">{{ ability.poster }}</a>
 					</li>
 				{% endfor %}
 			</ul>
