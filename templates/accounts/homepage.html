@@ -5,23 +5,53 @@
 	<body background="../../site_medias/snorlax.jpg">
 		<h1><font color="orange">{{ user.username }}的主页</font></h1>
 		<hr>
-		<h2><font color="orange">{{ user.username }}的任务</font></h2>
-		<ul>
-			{% for task in tasks %}
-				<li>
-					<a href="/tasks/{{ task.id }}/"><font color="orange">{{ task.title }}</font></a>
-				</li>
-			{% endfor %}
-		</ul>
-		<br>
-		<h2><font color="orange">{{ user.username }}的能力</font></h2>
-		<ul>
-			{% for ability in abilities %}
-				<li>
-					<a href="/sells/{{ ability.id }}/"><font color="orange">{{ ability.title }}</font></a>
-				</li>
-			{% endfor %}
-		</ul>
+		<table border="1" bgcolor="green">
+			<tr>
+				<th></th><th><font color="orange">任务</font></th><th><font color="orange">能力</th>
+			</tr>
+			<tr>
+				<th><font color="orange">未接受</font></th>
+				<th>
+					<ul>
+						{% for task in unreceived_tasks %}
+							<li>
+								<a href="/tasks/{{ task.id }}/"><font color="orange">{{ task.title }}</font></a>
+							</li>
+						{% endfor %}
+					</ul>
+				</th>
+				<th>
+					<ul>
+						{% for ability in unreceived_abilities %}
+							<li>
+								<a href="/sells/{{ ability.id }}/"><font color="orange">{{ ability.title }}</font></a>
+							</li>
+						{% endfor %}
+					</ul>
+				</th>
+			</tr>
+			<tr>
+				<th><font color="orange">已接受</font></th>
+				<th>
+					<ul>
+						{% for task in received_tasks %}
+							<li>
+								<a href="/tasks/{{ task.id }}/"><font color="orange">{{ task.title }}</font></a>
+							</li>
+						{% endfor %}
+					</ul>
+				</th>
+				<th>
+					<ul>
+						{% for ability in received_abilities %}
+							<li>
+								<a href="/sells/{{ ability.id }}/"><font color="orange">{{ ability.title }}</font></a>
+							</li>
+						{% endfor %}
+					</ul>
+				</th>
+			</tr>
+		</table>
 		<hr>
 		<p><a href="/"><font color="orange">返回主页</font></a></p>
 	</body>

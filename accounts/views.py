@@ -17,6 +17,7 @@ def register(request):
 			new_user=form.save()
 			_login(request, form.cleaned_data['username'], form.cleaned_data['password1'])
 			return HttpResponseRedirect("/accounts/welcome/")
+			#return HttpResponseRedirect(request.get_full_path())
 	else:
 		form=UserCreationForm()
 	return render_to_response("accounts/register.html", {'form':form,})
@@ -29,6 +30,7 @@ def login(request):
 		if form.is_valid():
 			_login(request,form.cleaned_data['username'],form.cleaned_data['password'])
 			return HttpResponseRedirect("/accounts/welcome/")
+			#return HttpResponseRedirect(url)
 	template_var['form']=form
 	return render_to_response("accounts/login.html",template_var,context_instance=RequestContext(request))
 
@@ -63,7 +65,9 @@ def homepage(request, username):
 			user=User.objects.get(username=username)
 		except:
 			raise Http404()
-		tasks=Task.objects.filter(poster=username)
-		abilities=Ability.objects.filter(poster=username)
-		return render_to_response("accounts/homepage.html", {'request': request, 'user': user, 'tasks': tasks, 'abilities': abilities, })
+		received_tasks=Task.objects.filter(poster=username).exclude(receiver="")
+		unreceived_tasks=Task.objects.filter(poster=username, receiver="")
+		received_abilities=Ability.objects.filter(poster=username).exclude(receiver="")
+		unreceived_abilities=Ability.objects.filter(poster=username, receiver="")
+		return render_to_response("accounts/homepage.html", {'request': request, 'user': user, 'received_tasks': received_tasks, 'unreceived_tasks': unreceived_tasks, 'received_abilities': received_abilities, 'unreceived_abilities': unreceived_abilities, })
 	return HttpResponseRedirect("/accounts/login/")
