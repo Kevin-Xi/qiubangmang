@@ -36,11 +36,11 @@ def login(request):
 
 def welcome(request):
 	if request.user.is_authenticated():
-		#return HttpResponse("<a href='/'> Welcome, %s </a>" % request.user.username)
-		#return render_to_response('index.html', {'request': request,})
-		return HttpResponseRedirect("/")
+		username=request.user.username
+		url=request.get_full_path()
+		return render_to_response('accounts/welcome.html', {'username': username, 'url': url, })
 	else:
-		return HttpResponse("707")
+		return HttpResponseRedirect("/accounts/login/")
 
 def _login(request, username, password):
 	ret=False

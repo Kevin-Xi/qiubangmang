@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<title>欢迎！</title>
+		<!--meta http-equiv="refresh" content="5; url={{ url }}"--!>
+	</head>
+	<body>
+		<p>欢迎回来，{{ username }}！<span id="totalSecond">5</span>秒后跳转到登录前页面。</p>
+		<hr>
+		<p><a href="/">返回主页</a></p>
+
+		<script language="javascript" type="text/javascript">
+			var second=document.getElementById('totalSecond').textContent;
+
+			if (navigator.appName.indexOf("Explorer")>-1){
+				second=document.getElementById('totalSecond').innerText;
+			} else {
+				second=document.getElementById('totalSecond').textContent;
+			}
+
+			setInterval("redirect()", 1000);
+
+			function redirect(){
+				if (second<1){
+					location.href="/";
+				} else {
+					if (navigator.appName.indexOf("Explorer")>-1){
+						document.getElementById('totalSecond').innerText=second--;
+					} else {
+						document.getElementById('totalSecond').textContent=second--;
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
