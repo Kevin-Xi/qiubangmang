@@ -13,10 +13,9 @@
 		{% if sell.receiver %}
 			<p>此能力已被<a href="/accounts/{{ sell.receiver }}/">{{ sell.receiver }}</a>预订</p>
 		{% else %}
-			<!--form action="" method="post">{% csrf_token %}
+			<form action="" method="post">{% csrf_token %}
 				<p><input type="submit" value="预订！" /></p>
-			</form--!>
-			<p><a href="/sells/receive={{ sell.id }}/"><button type="submit">预订！</button></a></p>
+			</form>
 		{% endif %}
 		<hr>
 		<a href="/">回到主页</a>

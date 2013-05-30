@@ -26,24 +26,21 @@ def post(request):
 
 def show_task(request,no):
 	if request.user.is_authenticated():
-		try:
-			no=int(no)
-			task=Task.objects.get(id=no)
-		#except ValueError:
-		except:
-			raise Http404()
-		return render_to_response("tasks/showtask.html", {'task' : task, })
+		if request.method == 'POST':
+			receive(request, no)
+			return HttpResponseRedirect("/tasks/%s/" % no)
+		else:
+			try:
+				no=int(no)
+				task=Task.objects.get(id=no)
+			except:
+				raise Http404()
+			return render_to_response("tasks/showtask.html", {'task':task, })
 	return HttpResponseRedirect("/accounts/login/")
 
 def receive(request, no):
-	if request.user.is_authenticated():
-		try:
-			no=int(no)
-			task=Task.objects.get(id=no)
-		except:
-			raise Http404()
-		if not task.receiver:
-			task.receiver=request.user.username
-			task.save()
-		return HttpResponseRedirect("/tasks/%s/" % no)
-	return HttpResponseRedirect("/accounts/login/")
+	task = Task.objects.get(id=no)
+
+	if not task.receiver:
+		task.receiver=request.user.username
+		task.save()

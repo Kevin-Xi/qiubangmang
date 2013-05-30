@@ -26,24 +26,21 @@ def post(request):
 
 def show_ability(request,no):
 	if request.user.is_authenticated():
-		try:
-			no=int(no)
-			sell=Ability.objects.get(id=no)
-		#except ValueError:
-		except:
-			raise Http404()
-		return render_to_response("sells/showability.html", {'sell' : sell, })
+		if request.method == 'POST':
+			receive(request, no)
+			return HttpResponseRedirect("/sells/%s/" % no)
+		else:
+			try:
+				no=int(no)
+				sell=Ability.objects.get(id=no)
+			except:
+				raise Http404()
+			return render_to_response("sells/showability.html", {'sell' : sell, })
 	return HttpResponseRedirect("/accounts/login/")
 
 def receive(request, no):
-	if request.user.is_authenticated():
-		try:
-			no=int(no)
-			sell=Ability.objects.get(id=no)
-		except:
-			raise Http404()
-		if not sell.receiver:
-			sell.receiver=request.user.username
-			sell.save()
-		return HttpResponseRedirect("/sells/%s/" % no)
-	return HttpResponseRedirect("/accounts/login/")
+	sell = Ability.objects.get(id=no)
+
+	if not sell.receiver:
+		sell.receiver=request.user.username
+		sell.save()
