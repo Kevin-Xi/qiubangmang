@@ -20,7 +20,6 @@ def post(request):
 				content=form.cleaned_data["content"]
 				bonus=form.cleaned_data["bonus"]
 				deadline = form.cleaned_data["deadline"]
-				#post=Mission(poster=poster,title=title,content=content,bonus=bonus)
 				post = Mission(missionNAME=title, missionDESCRIBE=content,
 						logDATE=datetime.datetime.now(), deadline=deadline,
 						rpBONUS=bonus, missionRAISER=poster)

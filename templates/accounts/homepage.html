@@ -24,7 +24,7 @@
 					<ul>
 						{% for ability in unreceived_abilities %}
 							<li>
-								<a href="/sells/{{ ability.id }}/"><font color="orange">{{ ability.title }}</font></a>
+								<a href="/sells/{{ ability.id }}/"><font color="orange">{{ ability.abilityNAME }}</font></a>
 							</li>
 						{% endfor %}
 					</ul>
@@ -45,7 +45,7 @@
 					<ul>
 						{% for ability in received_abilities %}
 							<li>
-								<a href="/sells/{{ ability.id }}/"><font color="orange">{{ ability.title }}</font></a>
+								<a href="/sells/{{ ability.id }}/"><font color="orange">{{ ability.abilityNAME }}</font></a>
 							</li>
 						{% endfor %}
 					</ul>

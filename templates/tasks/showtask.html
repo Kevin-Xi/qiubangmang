@@ -4,7 +4,7 @@
 	</head>
 	<body background="../../site_medias/pikachu.jpg">
 		<h1>{{ task.missionNAME }}</h1>
-		<p>发布者：<a href="/accounts/{{ task.missionRAISER.username }}/">{{ task.missionRAISER.username }}</a></p>
+		<p>发布者：<a href="/accounts/{{ task.missionRAISER.id }}/">{{ task.missionRAISER.username }}</a></p>
 		<p>发布日期：{{ task.logDATE }}</p>
 		<br>
 		<p>{{ task.missionDESCRIBE }}</p>
@@ -13,7 +13,7 @@
 		<p>截止日期：{{ task.deadline }}</p>
 		<br>
 		{% if task.missionRECEIVER %}
-		<p>此任务已被<a href="/accounts/{{ task.missionRECEIVER.username }}/">{{ task.missionRECEIVER.username }}</a>于{{ task.acceptDATE }}领取</p>
+		<p>此任务已被<a href="/accounts/{{ task.missionRECEIVER.id }}/">{{ task.missionRECEIVER.username }}</a>于{{ task.acceptDATE }}领取</p>
 		{% else %}
 			<form action="" method="post">{% csrf_token %}
 				<p><input type="submit" value="领取！" /></p>

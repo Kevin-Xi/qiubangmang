@@ -1,8 +1,17 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Ability(models.Model):
-	poster=models.CharField(max_length=30)
-	receiver=models.CharField(max_length=30, blank=True)
-	title=models.CharField(max_length=60)
-	content=models.TextField(max_length=1000)
-	bonus=models.PositiveIntegerField()
+	#poster=models.CharField(max_length=30)
+	#receiver=models.CharField(max_length=30, blank=True)
+	#title=models.CharField(max_length=60)
+	#content=models.TextField(max_length=1000)
+	#bonus=models.PositiveIntegerField()
+
+	abilityNAME = models.CharField(max_length=20)
+	abilityDESCRIBE = models.TextField(max_length=1000)
+	logDATE = models.DateTimeField()
+	rpREQUIRED = models.PositiveIntegerField()
+	abilityRAISER = models.ForeignKey(User, related_name='User_abilityRAISER')
+	abilityRECEIVER = models.ForeignKey(User, related_name='User_abilityRECEIVER', null=True)
+	adoptDATE = models.DateTimeField(null=True)

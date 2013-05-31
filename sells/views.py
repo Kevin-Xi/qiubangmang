@@ -1,9 +1,11 @@
 #-- coding:utf-8 --
+import datetime
 from django import forms
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from models import Ability
 from forms import PostForm
 
@@ -13,11 +15,12 @@ def post(request):
 		if request.method=="POST":
 			form=PostForm(request.POST.copy())
 			if form.valid():
-				poster=request.user.username
+				poster=request.user
 				title=form.cleaned_data["title"]
 				content=form.cleaned_data["content"]
 				bonus=form.cleaned_data["bonus"]
-				post=Ability(poster=poster,title=title,content=content,bonus=bonus)
+				post = Ability(abilityNAME=title, abilityDESCRIBE=content,
+						logDATE=datetime.datetime.now(),rpREQUIRED=bonus, abilityRAISER=poster)
 				post.save()
 				return HttpResponseRedirect("/")
 		form=PostForm()
@@ -41,6 +44,7 @@ def show_ability(request,no):
 def receive(request, no):
 	sell = Ability.objects.get(id=no)
 
-	if not sell.receiver:
-		sell.receiver=request.user.username
+	if not sell.abilityRECEIVER:
+		sell.abilityRECEIVER = request.user
+		sell.adoptDATE = datetime.datetime.now()
 		sell.save()

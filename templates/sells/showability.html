@@ -3,15 +3,16 @@
 		<title>球帮忙-展示能力</title>
 	</head>
 	<body background="../../site_medias/squirtle.jpg">
-		<h1>{{ sell.title }}</h1>
-		<p>作者：<a href="/accounts/{{ sell.poster }}/">{{ sell.poster }}</a></p>
+		<h1>{{ sell.abilityNAME }}</h1>
+		<p>发布者：<a href="/accounts/{{ sell.abilityRAISER.id }}/">{{ sell.abilityRAISER.username }}</a></p>
+		<p>发布日期：{{ sell.logDATE }}</p>
 		<br>
-		<p>{{ sell.content }}</p>
+		<p>{{ sell.abilityDESCRIBE }}</p>
 		<br>
-		<p>要价：{{ sell.bonus }}</p>
+		<p>要价：{{ sell.rpREQUIRED }}</p>
 		<br>
-		{% if sell.receiver %}
-			<p>此能力已被<a href="/accounts/{{ sell.receiver }}/">{{ sell.receiver }}</a>预订</p>
+		{% if sell.abilityRECEIVER %}
+		<p>此能力已被<a href="/accounts/{{ sell.abilityRECEIVER.id }}/">{{ sell.abilityRECEIVER.username }}</a>于{{ sell.adoptDATE }}预订</p>
 		{% else %}
 			<form action="" method="post">{% csrf_token %}
 				<p><input type="submit" value="预订！" /></p>

@@ -43,7 +43,7 @@
 			<ul>
 				{% for ability in abilities %}
 					<li>
-					<a href="/sells/{{ ability.id }}/">{{ ability.title }}</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="/accounts/{{ ability.poster }}/">{{ ability.poster }}</a>
+					<a href="/sells/{{ ability.id }}/">{{ ability.abilityNAME }}</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="/accounts/{{ ability.abilityRAISER.id }}/">{{ ability.abilityRAISER.username }}</a>
 					</li>
 				{% endfor %}
 			</ul>
