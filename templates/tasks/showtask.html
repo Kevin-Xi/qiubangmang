@@ -3,15 +3,17 @@
 		<title>球帮忙-显示任务</title>
 	</head>
 	<body background="../../site_medias/pikachu.jpg">
-		<h1>{{ task.title }}</h1>
-		<p>作者：<a href="/accounts/{{ task.poster }}/">{{ task.poster }}</a></p>
+		<h1>{{ task.missionNAME }}</h1>
+		<p>发布者：<a href="/accounts/{{ task.missionRAISER.username }}/">{{ task.missionRAISER.username }}</a></p>
+		<p>发布日期：{{ task.logDATE }}</p>
 		<br>
-		<p>{{ task.content }}</p>
+		<p>{{ task.missionDESCRIBE }}</p>
 		<br>
-		<p>悬赏：{{ task.bonus }}</p>
+		<p>悬赏：{{ task.rpBONUS }}</p>
+		<p>截止日期：{{ task.deadline }}</p>
 		<br>
-		{% if task.receiver %}
-			<p>此任务已被<a href="/accounts/{{ task.receiver }}/">{{ task.receiver }}</a>领取</p>
+		{% if task.missionRECEIVER %}
+		<p>此任务已被<a href="/accounts/{{ task.missionRECEIVER.username }}/">{{ task.missionRECEIVER.username }}</a>于{{ task.acceptDATE }}领取</p>
 		{% else %}
 			<form action="" method="post">{% csrf_token %}
 				<p><input type="submit" value="领取！" /></p>

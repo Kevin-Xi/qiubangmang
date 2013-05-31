@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response
 #from forms import RegisterForm, LoginForm
 from forms import LoginForm
 from django.template import RequestContext
-from tasks.models import Task
+from tasks.models import Mission
 from sells.models import Ability
 
 def register(request):
@@ -59,15 +59,15 @@ def logout(request):
 	auth_logout(request)
 	return HttpResponseRedirect("/")
 
-def homepage(request, username):
+def homepage(request, user_id):
 	if request.user.is_authenticated():
 		try:
-			user=User.objects.get(username=username)
+			user=User.objects.get(id=user_id)
 		except:
 			raise Http404()
-		received_tasks=Task.objects.filter(poster=username).exclude(receiver="")
-		unreceived_tasks=Task.objects.filter(poster=username, receiver="")
-		received_abilities=Ability.objects.filter(poster=username).exclude(receiver="")
-		unreceived_abilities=Ability.objects.filter(poster=username, receiver="")
+		received_tasks = Mission.objects.filter(missionRAISER=user).exclude(missionRECEIVER=None)
+		unreceived_tasks = Mission.objects.filter(missionRAISER=user, missionRECEIVER=None)
+		received_abilities=Ability.objects.filter(poster=user_id).exclude(receiver="")
+		unreceived_abilities=Ability.objects.filter(poster=user_id, receiver="")
 		return render_to_response("accounts/homepage.html", {'request': request, 'user': user, 'received_tasks': received_tasks, 'unreceived_tasks': unreceived_tasks, 'received_abilities': received_abilities, 'unreceived_abilities': unreceived_abilities, })
 	return HttpResponseRedirect("/accounts/login/")

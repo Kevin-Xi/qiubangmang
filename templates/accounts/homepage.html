@@ -15,7 +15,7 @@
 					<ul>
 						{% for task in unreceived_tasks %}
 							<li>
-								<a href="/tasks/{{ task.id }}/"><font color="orange">{{ task.title }}</font></a>
+								<a href="/tasks/{{ task.id }}/"><font color="orange">{{ task.missionNAME }}</font></a>
 							</li>
 						{% endfor %}
 					</ul>
@@ -36,7 +36,7 @@
 					<ul>
 						{% for task in received_tasks %}
 							<li>
-								<a href="/tasks/{{ task.id }}/"><font color="orange">{{ task.title }}</font></a>
+								<a href="/tasks/{{ task.id }}/"><font color="orange">{{ task.missionNAME }}</font></a>
 							</li>
 						{% endfor %}
 					</ul>

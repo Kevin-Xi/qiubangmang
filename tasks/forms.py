@@ -6,6 +6,7 @@ class PostForm(forms.Form):
 	title=forms.CharField(label=_(u'主题'), max_length=60, widget=forms.TextInput(attrs={'size' : 20, }))
 	content=forms.CharField(label=_(u'内容'), max_length=1000, widget=forms.Textarea)
 	bonus=forms.CharField(label=_(u'悬赏'), widget=forms.TextInput)
+	deadline = forms.CharField(label=_(u'截止日期'), widget=forms.TextInput)
 
 	def valid(self):
 		if self.is_valid():
