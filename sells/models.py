@@ -8,7 +8,7 @@ class Ability(models.Model):
 	#content=models.TextField(max_length=1000)
 	#bonus=models.PositiveIntegerField()
 
-	abilityNAME = models.CharField(max_length=20)
+	abilityNAME = models.CharField(max_length=80)
 	abilityDESCRIBE = models.TextField(max_length=1000)
 	logDATE = models.DateTimeField()
 	rpREQUIRED = models.PositiveIntegerField()

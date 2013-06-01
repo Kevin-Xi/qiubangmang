@@ -32,7 +32,9 @@ def post(request):
 def show_task(request,no):
 	if request.user.is_authenticated():
 		if request.method == 'POST':
-			receive(request, no)
+			task_raiser = Mission.objects.get(id=no).missionRAISER
+			if request.user != task_raiser:
+				receive(request, no)
 			return HttpResponseRedirect("/tasks/%s/" % no)
 		else:
 			try:

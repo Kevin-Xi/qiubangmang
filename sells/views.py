@@ -30,7 +30,9 @@ def post(request):
 def show_ability(request,no):
 	if request.user.is_authenticated():
 		if request.method == 'POST':
-			receive(request, no)
+			ability_raiser = Ability.objects.get(id=no).abilityRAISER
+			if request.user != ability_raiser:
+				receive(request, no)
 			return HttpResponseRedirect("/sells/%s/" % no)
 		else:
 			try:

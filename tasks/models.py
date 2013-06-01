@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 #	bonus=models.PositiveIntegerField()
 
 class Mission(models.Model):
-	missionNAME = models.CharField(max_length=20)
+	missionNAME = models.CharField(max_length=80)
 	missionDESCRIBE = models.TextField(max_length=1000)
 	logDATE = models.DateTimeField()
 	deadline = models.DateTimeField()
