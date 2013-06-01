@@ -5,7 +5,7 @@
 	<body background="../../site_medias/squirtle.jpg">
 		<h1>{{ sell.abilityNAME }}</h1>
 		<p>发布者：<a href="/accounts/{{ sell.abilityRAISER.id }}/">{{ sell.abilityRAISER.username }}</a></p>
-		<p>发布日期：{{ sell.logDATE }}</p>
+		<p>发布日期：{{ sell.logDATE|date:"Y-m-d H:i:s" }}</p>
 		<br>
 		<p>{{ sell.abilityDESCRIBE }}</p>
 		<br>

@@ -5,12 +5,12 @@
 	<body background="../../site_medias/pikachu.jpg">
 		<h1>{{ task.missionNAME }}</h1>
 		<p>发布者：<a href="/accounts/{{ task.missionRAISER.id }}/">{{ task.missionRAISER.username }}</a></p>
-		<p>发布日期：{{ task.logDATE }}</p>
+		<p>发布日期：{{ task.logDATE|date:"Y-m-d H:i:s" }}</p>
 		<br>
 		<p>{{ task.missionDESCRIBE }}</p>
 		<br>
 		<p>悬赏：{{ task.rpBONUS }}</p>
-		<p>截止日期：{{ task.deadline }}</p>
+		<p>截止日期：{{ task.deadline|date:"Y-m-d H:i:s" }}</p>
 		<br>
 		{% if task.missionRECEIVER %}
 		<p>此任务已被<a href="/accounts/{{ task.missionRECEIVER.id }}/">{{ task.missionRECEIVER.username }}</a>于{{ task.acceptDATE }}领取</p>
