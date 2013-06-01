@@ -163,3 +163,6 @@ LOGGING = {
         },
     }
 }
+
+#customize user
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'

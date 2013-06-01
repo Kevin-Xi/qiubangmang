@@ -5,8 +5,12 @@ from django.utils.translation import ugettext_lazy as _
 
 class RegisterForm(forms.Form):
     email=forms.EmailField(label=_(u"邮件"),max_length=30,widget=forms.TextInput(attrs={'size': 30,}))    
-    password=forms.CharField(label=_(u"密码"),max_length=30,widget=forms.PasswordInput(attrs={'size': 20,}))
-    username=forms.CharField(label=_(u"昵称"),max_length=30,widget=forms.TextInput(attrs={'size': 20,}))
+    username=forms.CharField(label=_(u"用户名"),max_length=20,widget=forms.TextInput(attrs={'size': 20,}))
+    password=forms.CharField(label=_(u"密码"),max_length=10,widget=forms.PasswordInput(attrs={'size': 10,}))    
+    sex=forms.CharField(label=_(u"性别"),max_length=2,widget=forms.TextInput(attrs={'size':2,}))
+    phone=forms.CharField(label=_(u"手机号码"),max_length=15,widget=forms.TextInput(attrs={'size':15,}))
+    qq=forms.CharField(label=_(u"QQ号"),max_length=12,widget=forms.TextInput(attrs={'size':12,}))
+    describe=forms.CharField(label=_(u"自我描述"),max_length=100,widget=forms.TextInput(attrs={'size':100,}))
     
     def clean_username(self):
         '''验证重复昵称'''

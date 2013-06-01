@@ -4,23 +4,34 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response
-#from forms import RegisterForm, LoginForm
-from forms import LoginForm
+from forms import RegisterForm, LoginForm
 from django.template import RequestContext
 from tasks.models import Mission
 from sells.models import Ability
+from models import UserProfile
 
 def register(request):
-	if request.method=='POST':
-		form=UserCreationForm(request.POST)
-		if form.is_valid():
-			new_user=form.save()
-			_login(request, form.cleaned_data['username'], form.cleaned_data['password1'])
-			return HttpResponseRedirect("/accounts/welcome/")
-			#return HttpResponseRedirect(request.get_full_path())
-	else:
-		form=UserCreationForm()
-	return render_to_response("accounts/register.html", {'form':form,})
+    template_var = {}
+    form = RegisterForm()
+    if request.method == "POST":
+        form = RegisterForm(request.POST.copy())
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            sex = form.cleaned_data["sex"]
+            phone = form.cleaned_data["phone"]
+            qq = form.cleaned_data["qq"]
+            describe = form.cleaned_data["describe"]
+            user = User.objects.create_user(username, email, password)
+            user.save()
+            user_pro = UserProfile(user = user, 
+            	sex = sex, phone = phone, qq = qq, describe = describe)
+            user_pro.save()
+            _login(request, username, password)
+            return HttpResponseRedirect("/accounts/welcome")
+    template_var["form"] = form
+    return render_to_response("accounts/register.html", template_var, context_instance = RequestContext(request))
 
 def login(request):
 	template_var={}

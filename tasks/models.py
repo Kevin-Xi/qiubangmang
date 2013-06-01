@@ -1,5 +1,4 @@
 from django.db import models
-#from accounts.model import #
 from django.contrib.auth.models import User
 
 #class Task(models.Model):
@@ -19,6 +18,7 @@ class Mission(models.Model):
 	missionRAISER = models.ForeignKey(User, related_name='User_missionRAISER')
 	missionRECEIVER = models.ForeignKey(User, related_name='User_missionRECEIVER', null=True)
 	acceptDATE = models.DateTimeField(null=True)
+	closed = models.BooleanField()
 
 
 #https://docs.djangoproject.com/en/dev/ref/models/fields/

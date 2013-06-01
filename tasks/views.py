@@ -22,7 +22,7 @@ def post(request):
 				deadline = form.cleaned_data["deadline"]
 				post = Mission(missionNAME=title, missionDESCRIBE=content,
 						logDATE=datetime.datetime.now(), deadline=deadline,
-						rpBONUS=bonus, missionRAISER=poster)
+						rpBONUS=bonus, missionRAISER=poster, closed=False)
 				post.save()
 				return HttpResponseRedirect("/")
 		form=PostForm()
