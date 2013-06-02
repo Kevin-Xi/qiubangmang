@@ -19,6 +19,26 @@
 			</form>
 		{% endif %}
 		<hr>
+		<ul>
+		{% for reply in replies %}
+			<li>
+			<p>{{ reply.replyUSER.username }}于{{ reply.replyTIME|date:"Y-m-d H:i:s" }}写道：</p>
+			<p>{{ reply.replyWORDS }}</p>
+			<!--form action="" method="post">{% csrf_token %}
+				{{ form_for_reply.as_table }}
+				<p><input type="submit" value="回复" /></p>
+			</form-->
+			</li>
+		{% endfor %}
+		</ul>
+		<hr>
+		<form action="" method="post">{% csrf_token %}
+			<table border="0" cellpadding="0">
+				{{ form.as_table }}
+			</table>
+			<p><input type="submit" value="回复" /></p>
+		</form>
+		</hr>
 		<a href="/">回到主页</a>
 	</body>
 </html>

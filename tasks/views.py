@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from models import Mission
 from forms import PostForm
+from reply.forms import ReplyForm
+from reply.models import Reply
 
 def post(request):
 	if request.user.is_authenticated():
@@ -31,24 +33,35 @@ def post(request):
 
 def show_task(request,no):
 	if request.user.is_authenticated():
+		form = ReplyForm()
+		try:
+			no=int(no)
+			task=Mission.objects.get(id=no)
+		except:
+			raise Http404()
+
 		if request.method == 'POST':
-			task_raiser = Mission.objects.get(id=no).missionRAISER
-			if request.user != task_raiser:
-				receive(request, no)
+			if not request.POST.has_key('reply_tag'):
+				receive(request, task)
+			elif request.POST.has_key('reply_tag'):
+				save_reply(form, request, task)
 			return HttpResponseRedirect("/tasks/%s/" % no)
 		else:
-			try:
-				no=int(no)
-				task=Mission.objects.get(id=no)
-			except:
-				raise Http404()
-			return render_to_response("tasks/showtask.html", {'task':task, })
+			replies = Reply.objects.filter(berepliedMISSION=task)
+			return render_to_response("tasks/showtask.html", {'task':task, 'form':ReplyForm, 'replies':replies})
 	return HttpResponseRedirect("/accounts/login/")
 
-def receive(request, no):
-	task = Mission.objects.get(id=no)
+def receive(request, task):
+	task_raiser = task.missionRAISER
+	if request.user != task_raiser:
+		if not task.missionRECEIVER:
+			task.missionRECEIVER = request.user
+			task.acceptDATE = datetime.datetime.now()
+			task.save()
 
-	if not task.missionRECEIVER:
-		task.missionRECEIVER = request.user
-		task.acceptDATE = datetime.datetime.now()
-		task.save()
+def save_reply(form, request, task):
+	#if not form.valid():
+	#content = form.cleaned_data['content']
+	content = request.POST['content']
+	reply = Reply(replyTIME=datetime.datetime.now(), replyUSER=request.user, berepliedMISSION=task, replyWORDS=content)
+	reply.save()

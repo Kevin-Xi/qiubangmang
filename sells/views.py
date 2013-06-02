@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from models import Ability
 from forms import PostForm
+from reply.forms import ReplyForm
+from reply.models import Reply
 
 def post(request):
 	if request.user.is_authenticated():
@@ -29,24 +31,35 @@ def post(request):
 
 def show_ability(request,no):
 	if request.user.is_authenticated():
+		form = ReplyForm()
+		try:
+			no=int(no)
+			sell=Ability.objects.get(id=no)
+		except:
+			raise Http404()
+
 		if request.method == 'POST':
-			ability_raiser = Ability.objects.get(id=no).abilityRAISER
-			if request.user != ability_raiser:
-				receive(request, no)
+			if not request.POST.has_key('reply_tag'):
+				receive(request, sell)
+			elif request.POST.has_key('reply_tag'):
+				save_reply(form, request, sell)
 			return HttpResponseRedirect("/sells/%s/" % no)
 		else:
-			try:
-				no=int(no)
-				sell=Ability.objects.get(id=no)
-			except:
-				raise Http404()
-			return render_to_response("sells/showability.html", {'sell' : sell, })
+			replies = Reply.objects.filter(berepliedABILITY=sell)
+			return render_to_response("sells/showability.html", {'sell' : sell, 'form':ReplyForm, 'replies':replies})
 	return HttpResponseRedirect("/accounts/login/")
 
-def receive(request, no):
-	sell = Ability.objects.get(id=no)
+def receive(request, sell):
+	ability_raiser = sell.abilityRAISER
+	if request.user != ability_raiser:
+		if not sell.abilityRECEIVER:
+			sell.abilityRECEIVER = request.user
+			sell.adoptDATE = datetime.datetime.now()
+			sell.save()
 
-	if not sell.abilityRECEIVER:
-		sell.abilityRECEIVER = request.user
-		sell.adoptDATE = datetime.datetime.now()
-		sell.save()
+def save_reply(form, request, sell):
+	#if not form.valid():
+	#content = form.cleaned_data['content']
+	content = request.POST['content']
+	reply = Reply(replyTIME=datetime.datetime.now(), replyUSER=request.user, berepliedABILITY=sell, replyWORDS=content)
+	reply.save()
