@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../../site_medias/css/task.css" />
+<link rel="stylesheet" type="text/css" href="../../site_medias/css/siteHeader.css"/>
+<link rel="stylesheet" type="text/css" href="../../site_medias/css/logo.css" />
+<script type="text/javascript" src="../../site_medias/js/time_minus.js"></script>
+<script type="text/javascript" src="../../site_medias/js/jquery-1.9.1.min.js"></script>
+<!--link rel="stylesheet" type="text/css" href="css/note.css" /-->
+<link  href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../../site_medias/js/jquery.wookmark.js"></script> 
+
+
+<title>无标题文档</title>
+
+</head>
+
+<body>
+
+<div class="container" >
+  <header>
+  		<div id="siteHeader" style="left: 0px;">
+        	<div id="siteHeaderInner">
+            	<ul class="siteHeaderGlovalNavigation">
+                	<li><a href="/"><span>首页</span></a></li>
+                    <li><a href="/tasks/"><span>任务</span></a></li>
+                    <li><a href="/sells/"><span>能力</span></a></li>
+                </ul>
+                
+                <ul class="siteHeaderMenuList">
+                	{% if request.user.is_authenticated %}
+                    <li id="siteHeaderNotification" >
+                    <a href="/accounts/{{ request.user.id }}">
+					<span id="siteHeaderUserNickNameContainer">Hi,{{ request.user.username }}</span>
+					</a>
+                    </li>
+                    <li id="siteHeaderHorizon"><a href="/post"><span>发布任务</span></a></li>
+                    <li id="siteHeaderHorizon"><a href="/sells/post"><span>展示能力</span></a></li>
+                    <li class="siteHeaderHorizon"><a href="/accounts/logout"><span>登出</span></a>
+                    </li>
+                    {% else %}
+                    <li id="siteHeaderNotification" class="siteHeaderLogin">
+                        <a href="/accounts/login"><span>登入</span></a>
+
+                    </li>
+                    <li id="siteHeaderNotification" class="siteHeaderLogin">
+                        <a href="/accounts/register"><span>注册</span></a>
+                                                                    
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        
+        <div id="logo">
+        	<a href="/"><img src="../../site_medias/img/logo_ver2.png" /></a>
+        </div>
+  </header>
+  
+<div class="waterFall" >
+
+<ul id="wf"> 
+	{% for mission in tasks%}
+   <a href="/tasks/{{ mission.id }}">
+    <li ><style>#wf li:hover{background-color:#F00;opacity:0.5;}#wf li{width:200px;}</style>
+        <h2>{{mission.missionNAME}}</h2><p>{{mission.missionDESCRIBE}}
+    </p>
+    </li>
+    </a>
+    {% endfor %}
+    <li width="200">
+    	<h2>Example</h2>
+
+    	<img src="../../site_medias/img/blue-bg.jpg" width="200" height="200" /><p>Here is details</p>
+    </li>
+    <li>
+    	<img src="../../site_medias/img/blue-bg.jpg" width="200" height="300" /><p>Expmple</p>
+    </li>
+    <li>
+    	<img src="../../site_medias/img/default-image.png" width="200" height="400" /><p>Example</p>
+    </li>
+    <li>
+    	<img src="../../site_medias/img/default-image.png" width="200" height="200" /><p>Example</p>
+    </li>
+</ul>
+
+ </div>
+</div>
+
+<script type="text/javascript">
+$("#wf li").wookmark({ 
+    container:$("#wf"), 
+    offset:20, 
+    itemWidth:200 
+}); 
+
+</script>
+</body>
+</html>

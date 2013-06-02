@@ -41,7 +41,7 @@ def post(request):
 				poster_pro.save()
 				return HttpResponseRedirect("/")
 		form = PostForm()
-		return render_to_response("tasks/post.html",{'form': form,})
+		return render_to_response("tasks/post.html",{'request': request, 'form': form, })
 	return HttpResponseRedirect("/accounts/login/")
 
 def show_task(request,no):
@@ -67,17 +67,23 @@ def show_task(request,no):
 			raise Http404()
 
 		if request.method == 'POST':
-			if request.POST.has_key('receive') and request.POST['receive'] == '领取！':
+			print request.POST
+			if request.POST.has_key('receive') and request.POST['receive'] == u'领   取':
 				receive(request, task)
-			if request.POST.has_key('finish') and request.POST['finish'] == '结算！':
+			if request.POST.has_key('finish') and request.POST['finish'] == u'结   算':
 				finish(request, task)
 			if request.POST.has_key('reply_tag'):
 				save_reply(form, request, task)
 			return HttpResponseRedirect("/tasks/%s/" % no)
 		else:
 			replies = Reply.objects.filter(berepliedMISSION=task)
-			return render_to_response("tasks/showtask.html", {'task': task, 'form': ReplyForm, 'replies': replies, 'is_raiser':is_raiser, 'is_receiver':is_receiver,})
+			return render_to_response("tasks/showtask.html", {'request':request, 'task': task, 'form': ReplyForm, 'replies': replies,'is_raiser':is_raiser, 'is_receiver':is_receiver})
 	return HttpResponseRedirect("/accounts/login/")
+
+def show_all_tasks(request):
+	tasks = Mission.objects.all()
+	return render_to_response('tasks/task.html',
+			{'request': request, 'tasks': tasks, })
 
 def receive(request, task):
 	'''Tool method for save task'''

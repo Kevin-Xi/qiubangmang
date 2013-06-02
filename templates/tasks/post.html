@@ -1,15 +1,75 @@
-<html>
-	<head>
-		<title>球帮忙-发布任务</title>
-	</head>
-	<body>
-		<form action="" method="post">{% csrf_token %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../../site_medias/css/logo.css" />
+<link rel="stylesheet" type="text/css" href="../../site_medias/css/siteHeader.css"/>
+<link rel="stylesheet" type="text/css" href="../../site_medias/css/note.css" />
+<title>无标题文档</title>
+<style>
+	.container{
+		margin:0 auto;
+		width:960px;
+	}
+        #id_title{
+            width: 380px;
+        }
+        #id_content{
+            width: 380px;
+        }
+        #id_bonus{
+            width: 380px;
+        }
+        #id_deadline{
+            width: 380px;
+        }
+</style>
+</head>
+
+<body>
+	<div class="container">
+    <header>
+  		<div id="siteHeader" style="left: 0px;">
+        	<div id="siteHeaderInner">
+            	<ul class="siteHeaderGlovalNavigation">
+                	<li><a href="/"><span>首页</span></a></li>
+                    <li><a href="/tasks"><span>任务</span></a></li>
+                    <li><a href="/sells"><span>能力</span></a></li>
+                </ul>
+                
+                <ul class="siteHeaderMenuList">
+                	{% if request.user.is_authenticated %}
+                    <li id="siteHeaderNotification" >
+                    <a href="/accounts/{{ request.user.id }}">
+					<span id="siteHeaderUserNickNameContainer">Hi,{{ request.user.username }}</span>
+					</a>
+                    </li>
+                    <li id="siteHeaderHorizon"><a href="/post"><span>发布任务</span></a></li>
+                    <li id="siteHeaderHorizon"><a href="/sells/post"><span>展示能力</span></a></li>
+                    <li class="siteHeaderHorizon"><a href="/accounts/logout"><span>登出</span></a>
+                    </li>
+                    {% else %}
+                    <li id="siteHeaderNotification" class="siteHeaderLogin">
+						<a href="/accounts/register"><span>注册</span></a>
+					</li>
+					<li id="siteHeaderNotification" class="siteHeaderLogin">
+						<a href="/accounts/login"><span>登录</span></a>
+					</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        
+        <div id="logo">
+        	<a href="/"><img src="../../site_medias/img/logo_ver2.png" /></a>
+        </div>
+  </header>
+	<form action="" method="post">{% csrf_token %}
 			<table border="0" cellpadding="0">
 				{{ form.as_table }}
 			</table>
-			<p><input type="submit" value="发布" /></p>
+			<p><input type="submit" value="发布" class="button red"/></p>
 		</form>
-		<hr>
-		<a href="/">回到主页</a>
-	</body>
+    </div>
+</body>
 </html>

@@ -6,4 +6,5 @@ import views
 urlpatterns = patterns('',
 		url(r'^post/$', views.post),
 		(r'^(\d{1,})/$', views.show_ability),
+		(r'^$', views.show_all_abilities),
 		)

@@ -1,52 +1,171 @@
-<html>
-	<head>
-		<title>
-			Seek For Help!
-		</title>
-	</head>
-	<body background="site_medias/subject.jpg">
-		<h1> 学长，球帮忙！ </h1>
-		<hr>
-		<p> 上选修课忘了拷贝课件有木有！周末出去玩没人帮忙领快递有木有！！高数题不会解有木有！！！中午课拖堂吃不上饭有木有！！！！选课时不在有木有！！！！！物理实验没人陪同心里没底有木有！！！！！！</p>
-		{% if request.user.is_authenticated %}
-			<!--a href="/posts/post/">发帖</a--!>
-			<a href="/tasks/post/">发布任务</a>
-			<a href="/sells/post/">展示能力</a>
-			<a href="/accounts/{{ request.user.id }}/">个人主页</a>
-			<a href="/accounts/logout/">登出</a>
-		{% else %}
-			<p><strong> <h2>现在加入“球帮忙”，以上难题，瞬间秒杀！</h2></strong></p>
-			<a href="/accounts/signup/">注册</a>
-			<a href="/accounts/login/">登录</a>
-		{% endif %}
-		<hr>
-		{% if request.user.is_authenticated %}
-			<!--h2>灌水</h2>
-			<ul>
-				{% for post in posts %}
-					<li>
-						<a href="/posts/post/{{ post.id }}">{{ post.title }}</a> &nbsp;&nbsp;&nbsp;&nbsp; {{ post.poster }}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link rel="stylesheet" type="text/css" href="site_medias/css/home_page2.css" />
+<link rel="stylesheet" type="text/css" href="site_medias/css/siteHeader.css"/>
+<link rel="stylesheet" type="text/css" href="site_medias/css/searchBar.css"/>
+<link rel="stylesheet" type="text/css" href="site_medias/css/slider_multiple.css"/>
+<link rel="stylesheet" type="text/css" href="site_medias/css/sbBlock.css" />
+<link rel="stylesheet" type="text/css" href="site_medias/css/note.css" />
+<link rel="stylesheet" type="text/css" href="site_medias/css/logo.css" />
+<link rel="stylesheet" type="text/css" href="site_medias/css/taskItem_style.css" />
+<script type="text/javascript" src="site_medias/js/wpts_slider_multiple.js"></script>
+<script type="text/javascript" src="site_medias/js/jquery-1.9.1.min.js"></script>
+<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+
+
+
+
+
+<!-- Start WOWSlider.com HEAD section -->
+	<link rel="stylesheet" type="text/css" href="site_medias/engine1//style.css" media="screen" />
+	<style type="text/css">
+	a:link {
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+    </style>
+	<script type="text/javascript" src="site_medias/engine1//jquery.js"></script>
+<!-- End WOWSlider.com HEAD section -->
+
+</head>
+
+
+
+<body>
+
+<div class="container">
+  <header>
+  		<div id="siteHeader" style="left: 0px;">
+        	<div id="siteHeaderInner">
+            	<ul class="siteHeaderGlovalNavigation">
+                	<li><a href="/"><span>首页</span></a></li>
+                    <li><a href="/tasks/"><span>任务</span></a></li>
+                    <li><a href="/sells/"><span>能力</span></a></li>
+                </ul>
+                
+                <ul class="siteHeaderMenuList">
+                	{% if request.user.is_authenticated %}
+                    <li id="siteHeaderNotification" >
+                    <a href="/accounts/{{ request.user.id }}">
+					<span id="siteHeaderUserNickNameContainer">Hi,{{ request.user.username }}</span>
+					</a>
+                    </li>
+                    <li id="siteHeaderHorizon"><a href="/tasks/post"><span>发布任务</span></a></li>
+                    <li id="siteHeaderHorizon"><a href="/sells/post"><span>展示能力</span></a></li>
+                    <li class="siteHeaderHorizon"><a href="/accounts/logout/"><span>登出</span></a>
+                    </li>
+                    {% else %}
+                    <li id="siteHeaderNotification" class="siteHeaderLogin">
+						<a href="/accounts/login"><span>登入</span></a>
+
 					</li>
-				{% endfor %}
-			</ul>
-			<br--!>
-			<h2>任务</h2>
-			<ul>
-				{% for task in tasks %}
-					<li>
-					<a href="/tasks/{{ task.id }}/">{{ task.missionNAME }}</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="/accounts/{{ task.missionRAISER.id }}/">{{ task.missionRAISER.username }}</a>
-					</li>
-				{% endfor %}
-			</ul>
-			<br>
-			<h2>能力</h2>
-			<ul>
-				{% for ability in abilities %}
-					<li>
-					<a href="/sells/{{ ability.id }}/">{{ ability.abilityNAME }}</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="/accounts/{{ ability.abilityRAISER.id }}/">{{ ability.abilityRAISER.username }}</a>
-					</li>
-				{% endfor %}
-			</ul>
-		{% endif %}
-	</body>
+                    <li id="siteHeaderNotification" class="siteHeaderLogin">
+                        <a href="/accounts/register"><span>注册</span></a>
+                                                                    
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        
+        <div id="logo">
+        	<a href="/"><img src="site_medias/img/logo_ver2.png" /></a>
+        </div>
+  </header>
+  
+
+
+
+<div class="content">
+    	<div id="searchBar">
+        	<div id="searchBarInner">
+            </div>
+        </div>
+  		<!-- Start WOWSlider.com BODY section id=wowslider-container1 -->
+        <div id="wowslider-container1">
+        <div class="ws_images">
+            <ul>
+                <li><img src="site_medias/img/活动1.png" alt="Example" title="主题活动1" id="wows1_0"/></li>
+                <li><img src="site_medias/img/活动2.png" alt="Example" title="主题活动2" id="wows1_1"/></li>
+                <li><img src="site_medias/img/活动3.png" alt="Example" title="主题活动3" id="wows1_2"/></li>
+            </ul>
+        </div>
+        <div class="ws_bullets"><div>
+            <a href="#" title="Chrysanthemum"><img src="site_medias/img/活动1.png" alt="Chrysanthemum"/>1</a>
+            <a href="#" title="Desert"><img src="site_medias/img/活动2.png" alt="Desert"/>2</a>
+            <a href="#" title="Hydrangeas"><img src="site_medias/img/活动3.png" alt="Hydrangeas"/>3</a>
+        </div></div>
+    	<!--<span class="wsl"><a href="http://wowslider.com">Slide Show Website</a> by WOWSlider.com v3.8</span>-->
+        <a href="#" class="ws_frame"></a>
+        <div class="ws_shadow"></div>
+        </div>
+        <script type="text/javascript" src="site_medias/engine1//wowslider.js"></script>
+        <script type="text/javascript" src="site_medias/engine1//script.js"></script>
+    <!-- End WOWSlider.com BODY section -->
+    <div id="leftBlock">
+    	<div id="sellBlock">
+        	<div class="blockBar">
+            	<a href="">任务</a>
+            </div>
+            <div id="sellContent">
+            	<div id="sellContentInner">
+
+                    <ul>
+                        <li>
+                            <a href="" rel="#tasks">
+                                <h2>aaa</h2>
+                                <span>Example</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="http://fredhq.com/img/projects/roundabout/demos/standard.png" alt="Standard" />
+                                <span>Example</span>
+                            </a>
+                        </li>
+                    </ul>
+       				<!--div class="view view-fifth">
+                        <img src="img/default-image.png" />
+                        <div class="mask">
+                            <h2>Hover Style #5</h2>
+                            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                            <a href="#" class="info">Read More</a>
+                        </div>
+                	</div-->
+                </div>
+            </div>
+        </div>
+        
+        <div id="buyBlock">
+        	<div class="blockBar">
+            	<a href="">能力</a>
+            </div>
+            <div id="buyContent">
+            </div>
+        </div>
+    </div>
+    <div id="rightBlock">
+    	<div id="ranking">
+        	<div class="blockBar">
+            	<a href="">任务排行榜</a>
+            </div>
+        </div>
+    </div>
+<!-- end .content --></div>
+  <!--div class="footer">
+    <p>脚注</p>
+    <!-- end .footer --><!--/div>
+  <!-- end .container --><!--/div>
+</body>
 </html>

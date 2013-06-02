@@ -1,44 +1,152 @@
-<html>
-	<head>
-		<title>球帮忙-展示能力</title>
-	</head>
-	<body background="../../site_medias/squirtle.jpg">
-		<h1>{{ sell.abilityNAME }}</h1>
-		<p>发布者：<a href="/accounts/{{ sell.abilityRAISER.id }}/">{{ sell.abilityRAISER.username }}</a></p>
-		<p>发布日期：{{ sell.logDATE|date:"Y-m-d H:i:s" }}</p>
-		<br>
-		<p>{{ sell.abilityDESCRIBE }}</p>
-		<br>
-		<p>要价：{{ sell.rpREQUIRED }}</p>
-		<br>
-		{% if sell.abilityRECEIVER %}
-		<p>此能力已被<a href="/accounts/{{ sell.abilityRECEIVER.id }}/">{{ sell.abilityRECEIVER.username }}</a>于{{ sell.adoptDATE }}预订</p>
-		{% else %}
-			<form action="" method="post">{% csrf_token %}
-				<p><input type="submit" value="预订！" /></p>
-			</form>
-		{% endif %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../../site_medias/css/siteHeader.css"/>
+<link rel="stylesheet" type="text/css" href="../../site_medias/css/logo.css" />
+<link rel="stylesheet" type="text/css" href="../../site_medias/css/taskInfo.css" />
+<link rel="stylesheet" type="text/css" href="../../site_medias/css/note.css" />
+<link rel="stylesheet" type="text/css" href="../../site_medias/css/messageContainer.css" />
+<title>无标题文档</title>
+</head>
+
+<body>
+	<div class="container">
+        <header>
+            <div id="siteHeader" style="left: 0px;">
+                <div id="siteHeaderInner">
+                    <ul class="siteHeaderGlovalNavigation">
+                        <li><a href="/"><span>首页</span></a></li>
+                        <li><a href="/tasks/"><span>任务</span></a></li>
+                        <li><a href="/sells/"><span>能力</span></a></li>
+                    </ul>
+                    <ul class="siteHeaderMenuList">
+                        {% if request.user.is_authenticated %}
+                        <li id="siteHeaderNotification" >
+                        <a href="/accounts/{{ request.user.id }}">
+                        <span id="siteHeaderUserNickNameContainer">Hi,{{ request.user.username }}</span>
+                        </a>
+                        <li id="siteHeaderHorizon"><a href="/tasks/post"><span>发布任务</span></a></li>
+                        <li id="siteHeaderHorizon"><a href="/sells/post"><span>展示能力</span></a></li>
+                        <li class="siteHeaderHorizon"><a href="/accounts/logout"><span>登出</span></a></li>
+                        {% else %}
+                        <li id="siteHeaderNotification" class="siteHeaderLogin">
+                        <a href="/accounts/login"><span>登入</span></a>
+
+                    </li>
+                    <li id="siteHeaderNotification" class="siteHeaderLogin">
+                        <a href="/accounts/register"><span>注册</span></a>
+                                                                    
+                    </li>
+                    {% endif %}
+                </ul>
+                </div>
+            </div>
+            <div id="logo">
+                <a href="/"><img src="../../site_medias/img/logo_ver2.png" /></a>
+            </div>
+        </header>
+        		<div class="note">
+                <ul>
+                	{% if ability.abilityRECEIVER %}
+                	<li>
+                    <a href="/accounts/{{ ability.abilityRECEIVER.id }}/">
+                    <h2>已领取！</h2>
+                    <p>此任务已被{{ ability.abilityRECEIVER.username }}于{{ ability.adoptDATE }}领取</p></a>
+                    
+                    </li>
+                    {% else %}
+                    	<li>
+						<a href="#">
+                        <h2>未领取！</h2>
+                        <p>此任务还没有被领取，点击下方按钮领取！</p>
+                        </a>
+                        </li>
+                        
+                    {% endif %}
+                    
+                </ul>
+				</div>
+                <!--div class="messageContainer">
+                    <p></p>
+                    <p></p>
+                    <br>
+                    
+                    <br>
+                    <p></p>
+                    <p>截止日期：{{ task.deadline|date:"Y-m-d H:i:s" }}</p-->
+                    <div id="container">
+
+                        <div class="bubble">
+                            <div class="rectangle"><h2>{{ ability.abilityNAME }}</h2></div>
+                            <div class="triangle-l"></div> <!-- Left triangle -->
+                            <div class="triangle-r"></div> <!-- Right triangle -->
+                            <div class="info">
+                            <h2>悬赏：{{ ability.rpREQUIRED }}</h2>
+                            <p>发布日期：{{ ability.logDATE|date:"Y-m-d H:i:s" }}</p>
+                            <p>{{ ability.abilityDESCRIBE }}</p>
+                            <p>发布者：<a href="/accounts/{{ ability.abilityRAISER.id }}/">{{ ability.abilityRAISER.username }}</a></p>
+                            <form action="" method="post">{% csrf_token %}
+                                {% if ability.abilityRECEIVER %}
+                                {% if is_receiver %}
+                              <p><input id = "finish" name = "finish" type="submit" value="结   算" class="button blue" /></p>
+                                {% endif %}
+                                {% else %}
+                                {% if not is_raiser %}
+                              <p><input id = "receive" name = "receive" type="submit" value="领   取" class="button blue" /></p>
+                                {% endif %}
+                        	</form>
+                            {% endif %}
+                            </div>
+                        </div>
+                    	
+                                    <style>.messagebox{margin:30px 0 0 0;} .messagebox p{font-size: 15px;}</style>
+                        	<div class="messagebox" >
+                                <ul>
+                                {% for reply in replies %}
+                                    <li>
+                                    <p>{{ reply.replyUSER.username }}于{{ reply.replyTIME|date:"Y-m-d H:i:s" }}写道：</p>
+                                    <p>      {{ reply.replyWORDS }}</p>
+                                    <!--form action="" method="post">{% csrf_token %}
+                                        {{ form_for_reply.as_table }}
+                                        <p><input type="submit" value="回复" /></p>
+                                    </form-->
+                                    </li>
+                                    <br>
+                                {% endfor %}
+                                </ul>
+                                </div>
+
+                            <form action="" method="post">{% csrf_token %}
+                            <table border="0" cellpadding="0">
+                                    {{ form.as_table }}
+                                </table>
+                                                            <p><input type="submit" value="回   复" class="button green"/></p>
+                            
+                        </form>
+                    </div>
+                </div>
+                <br>
+                
+                <br>
+                
 		<hr>
-		<ul>
-		{% for reply in replies %}
-			<li>
-			<p>{{ reply.replyUSER.username }}于{{ reply.replyTIME|date:"Y-m-d H:i:s" }}写道：</p>
-			<p>{{ reply.replyWORDS }}</p>
-			<!--form action="" method="post">{% csrf_token %}
-				{{ form_for_reply.as_table }}
-				<p><input type="submit" value="回复" /></p>
-			</form-->
-			</li>
-		{% endfor %}
-		</ul>
-		<hr>
-		<form action="" method="post">{% csrf_token %}
-			<table border="0" cellpadding="0">
-				{{ form.as_table }}
-			</table>
-			<p><input type="submit" value="回复" /></p>
-		</form>
-		</hr>
 		<a href="/">回到主页</a>
-	</body>
+		
+		<!-- Duoshuo Comment BEGIN -->
+        <div class="ds-thread"></div>
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"qiubangmang"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = 'http://static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+        <!-- Duoshuo Comment END -->
+	</div>
+
+</body>
 </html>

@@ -1,0 +1,23 @@
+@charset "utf-8";
+/* CSS Document */
+.container {
+	width: 960px;
+	background-color: #FFF;
+	margin: 0 auto; /* 侧边的自动值与宽度结合使用，可以将布局居中对齐 */
+}
+#wf{
+	position:relative;
+}
+#wf li{
+	/**/border:#A5A4A8 solid 1px;
+	box-shadow:#999 2px 2px 2px;
+	padding:5px;
+	list-style:none;
+	border-radius:2px;
+	transition:ease-in 0.3s;
+	cursor:pointer;
+}
+#wf li:hover{
+	background-color:#F00;
+	opacity:0.5;
+}
