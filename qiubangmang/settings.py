@@ -133,6 +133,7 @@ INSTALLED_APPS = (
 	#'posts',
 	'tasks',
 	'sells',
+	'reply',
 )
 
 # A sample logging configuration. The only tangible logging
