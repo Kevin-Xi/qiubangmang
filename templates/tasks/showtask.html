@@ -14,10 +14,17 @@
 		<br>
 		{% if task.missionRECEIVER %}
 		<p>此任务已被<a href="/accounts/{{ task.missionRECEIVER.id }}/">{{ task.missionRECEIVER.username }}</a>于{{ task.acceptDATE }}领取</p>
-		{% else %}
-			<form action="" method="post">{% csrf_token %}
-				<p><input type="submit" value="领取！" /></p>
+		{% if is_receiver %}
+			<form action="" method="POST">{% csrf_token %}
+				<p><input id="finish" name="finish" type="submit" value="结算！"/></p>
 			</form>
+			{% endif %}
+		{% else %}
+			{% if not is_raiser %}
+			<form action="" method="POST">{% csrf_token %}
+				<p><input id="receive" name="receive" type="submit" value="领取！"/></p>
+			</form>
+			{% endif %}
 		{% endif %}
 		<hr>
 		<ul>

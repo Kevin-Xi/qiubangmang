@@ -14,11 +14,12 @@ from models import Mission
 from forms import PostForm
 from reply.forms import ReplyForm
 from reply.models import Reply
+from accounts.models import UserProfile
 
 def post(request):
 	'''process post page
 
-	judge user's authenticate status and save valid post'''
+	judge user's authenticate status and save valid post, store raiseNUMBER of user'''
 
 	if request.user.is_authenticated():
 		form = PostForm()
@@ -34,6 +35,10 @@ def post(request):
 						logDATE=datetime.datetime.now(), deadline=deadline,
 						rpBONUS=bonus, missionRAISER=poster, closed=False)
 				post.save()
+
+				poster_pro = UserProfile.objects.get(user_id=request.user.id) 
+				poster_pro.raiseNUMBER += 1
+				poster_pro.save()
 				return HttpResponseRedirect("/")
 		form = PostForm()
 		return render_to_response("tasks/post.html",{'form': form,})
@@ -49,18 +54,29 @@ def show_task(request,no):
 		try:
 			no = int(no)
 			task = Mission.objects.get(id=no)
+			if task.closed:
+				return HttpResponseRedirect("/accounts/%s/" % request.user.id)
+			raiser_id = task.missionRAISER.id
+			if task.missionRECEIVER:
+				receiver_id = task.missionRECEIVER.id
+				is_receiver = request.user.id == receiver_id
+			else:
+				is_receiver = False
+			is_raiser = request.user.id == raiser_id
 		except:
 			raise Http404()
 
 		if request.method == 'POST':
-			if not request.POST.has_key('reply_tag'):
+			if request.POST.has_key('receive') and request.POST['receive'] == '领取！':
 				receive(request, task)
-			elif request.POST.has_key('reply_tag'):
+			if request.POST.has_key('finish') and request.POST['finish'] == '结算！':
+				finish(request, task)
+			if request.POST.has_key('reply_tag'):
 				save_reply(form, request, task)
 			return HttpResponseRedirect("/tasks/%s/" % no)
 		else:
 			replies = Reply.objects.filter(berepliedMISSION=task)
-			return render_to_response("tasks/showtask.html", {'task': task, 'form': ReplyForm, 'replies': replies,})
+			return render_to_response("tasks/showtask.html", {'task': task, 'form': ReplyForm, 'replies': replies, 'is_raiser':is_raiser, 'is_receiver':is_receiver,})
 	return HttpResponseRedirect("/accounts/login/")
 
 def receive(request, task):
@@ -79,3 +95,12 @@ def save_reply(form, request, task):
 	content = request.POST['content']
 	reply = Reply(replyTIME=datetime.datetime.now(), replyUSER=request.user, berepliedMISSION=task, replyWORDS=content)
 	reply.save()
+
+def finish(request, task):
+
+	task.closed = True;
+	task.save()
+	receiver_pro = UserProfile.objects.get(user_id = task.missionRECEIVER.id)
+	receiver_pro.rp += task.rpBONUS;
+	receiver_pro.userLEVEL = 1+receiver_pro.rp/100
+	receiver_pro.save()

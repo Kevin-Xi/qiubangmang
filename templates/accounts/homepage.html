@@ -10,7 +10,7 @@
 				<th></th><th><font color="orange">任务</font></th><th><font color="orange">能力</th>
 			</tr>
 			<tr>
-				<th><font color="orange">未接受</font></th>
+				<th><font color="orange">未被接受</font></th>
 				<th>
 					<ul>
 						{% for task in unreceived_tasks %}
@@ -31,7 +31,7 @@
 				</th>
 			</tr>
 			<tr>
-				<th><font color="orange">已接受</font></th>
+				<th><font color="orange">已被接受</font></th>
 				<th>
 					<ul>
 						{% for task in received_tasks %}
@@ -51,8 +51,37 @@
 					</ul>
 				</th>
 			</tr>
+			<tr>
+				<th><font color="orange">待完成</font></th>
+				<th colspan="2">
+					<ul>
+						{% for task in my_tasks %}
+							{% if not task.closed %}
+							<li>
+								<a href="/tasks/{{ task.id }}/"><font color="orange">{{ task.missionNAME }}</font></a>
+							</li>	
+							{% endif %}
+						{% endfor %}
+					</ul>	
+				</th>
+			</tr>
+			<tr>
+				<th><font color="orange">已完成</font></th>
+				<th colspan="2">
+					<ul>
+						{% for task in my_tasks %}
+							{% if task.closed %}
+							<li>
+								<a href="/tasks/{{ task.id }}/"><font color="orange">{{ task.missionNAME }}</font></a>
+							</li>	
+							{% endif %}
+						{% endfor %}
+					</ul>	
+				</th>
+			</tr>
 		</table>
 		<hr>
 		<p><a href="/"><font color="orange">返回主页</font></a></p>
+		<p><a href="/accounts/info/"><font color="orange">修改个人信息</font></a></p>
 	</body>
 </html>
