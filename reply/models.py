@@ -4,6 +4,10 @@ from tasks.models import Mission
 from sells.models import Ability
 
 class Reply(models.Model):
+	'''Reply model
+
+	follow the database design doc'''
+
 	replyTIME = models.DateTimeField()
 	replyUSER = models.ForeignKey(User, related_name='User_reply')
 	berepliedREPLY = models.ForeignKey('self', related_name='Reply_bereplied', null=True)

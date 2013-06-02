@@ -9,6 +9,10 @@ class PostForm(forms.Form):
 	deadline = forms.CharField(label=_(u'截止日期'), widget=forms.TextInput)
 
 	def valid(self):
+		'''check the validation of PostForm
+
+		check if bonus is positive, length of title, content valid'''
+
 		if self.is_valid():
 			try:
 				bonus_no=int(self.cleaned_data['bonus'])

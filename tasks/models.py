@@ -1,15 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-#class Task(models.Model):
-	#task_type=models.CharField(max_length=1, choices=(('P', 'Publish'), ('R', 'Receive')))
-#	poster=models.CharField(max_length=30)
-#	receiver=models.CharField(max_length=30, blank=True)
-#	title=models.CharField(max_length=60)
-#	content=models.TextField(max_length=1000)
-#	bonus=models.PositiveIntegerField()
-
 class Mission(models.Model):
+	'''Mission model
+
+	follow database design doc'''
+
 	missionNAME = models.CharField(max_length=80)
 	missionDESCRIBE = models.TextField(max_length=1000)
 	logDATE = models.DateTimeField()
@@ -19,7 +15,3 @@ class Mission(models.Model):
 	missionRECEIVER = models.ForeignKey(User, related_name='User_missionRECEIVER', null=True)
 	acceptDATE = models.DateTimeField(null=True)
 	closed = models.BooleanField()
-
-
-#https://docs.djangoproject.com/en/dev/ref/models/fields/
-
